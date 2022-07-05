@@ -1,0 +1,28 @@
+package handler
+
+import (
+	"net/http"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"wlight/lebron/apps/app/api/internal/logic"
+	"wlight/lebron/apps/app/api/internal/svc"
+	"wlight/lebron/apps/app/api/internal/types"
+)
+
+func HomebannerHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req types.RecommendRequest
+		if err := httpx.Parse(r, &req); err != nil {
+			httpx.Error(w, err)
+			return
+		}
+
+		l := logic.NewHomebannerLogic(r.Context(), svcCtx)
+		resp, err := l.Homebanner(&req)
+		if err != nil {
+			httpx.Error(w, err)
+		} else {
+			httpx.OkJson(w, resp)
+		}
+	}
+}

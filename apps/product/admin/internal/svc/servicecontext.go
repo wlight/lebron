@@ -1,6 +1,8 @@
 package svc
 
-import "wlight/lebron/apps/order/rpc/internal/config"
+import (
+	"wlight/lebron/apps/product/admin/internal/config"
+)
 
 type ServiceContext struct {
 	Config config.Config
